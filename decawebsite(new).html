@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Collegiate DECA — UNC Charlotte Chapter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Merriweather:wght@300;700&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --columbia-blue:#C4D8E2;
+            --columbia-navy:#0B3D91;
+            --accent:#2348A6;
+            --muted:#6b7280;
+            --bg:#f7fbfd;
+            --card-bg:#ffffff;
+            --glass: rgba(255,255,255,0.6);
+        }
+        *{box-sizing:border-box}
+        body{
+            margin:0;
+            font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            color:#08304a;
+            background:linear-gradient(180deg, #eef7fb 0%, #ffffff 40%);
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+        }
+
+        /* Hero / background */
+        .hero{
+            position:relative;
+            padding:64px 20px 40px;
+            background:
+                linear-gradient(180deg, rgba(11,61,145,0.08) 0%, rgba(196,216,226,0.04) 100%),
+                url('') center/cover no-repeat;
+            overflow:hidden;
+        }
+        /* watermark removed */
+
+        .container{max-width:1100px;margin:0 auto;}
+        .top{
+            display:flex;
+            gap:20px;
+            align-items:flex-end;
+            justify-content:space-between;
+            margin-bottom:24px;
+        }
+
+        /* Top navigation */
+        .site-nav{
+            display:flex;align-items:center;justify-content:space-between;
+            gap:20px;padding:12px 0;margin-bottom:10px;
+            background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7));
+            border-radius:12px;backdrop-filter: blur(6px);
+            box-shadow:0 4px 18px rgba(11,61,145,0.06);
+        }
+        .site-nav .links{display:flex;gap:14px;align-items:center}
+        .site-nav .links a{color:var(--columbia-navy);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
+        .site-nav .links a:hover{background:var(--bg)}
+
+        /* Compact brand on the right inside a white card */
+        .site-nav .brand{display:flex;align-items:center;gap:10px;background:var(--card-bg);padding:6px 10px;border-radius:10px;box-shadow:0 6px 14px rgba(11,61,145,0.06)}
+        .site-nav .brand .logo{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--columbia-blue),var(--columbia-navy));display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
+        .site-nav .links{display:flex;gap:12px;align-items:center}
+        .site-nav .links a{color:var(--columbia-navy);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
+        .site-nav .links a:hover{background:var(--bg)}
+        .profile{
+            display:flex;
+            gap:18px;
+            align-items:center;
+        }
+        .avatar{
+            width:110px;height:110px;border-radius:14px;
+            background:linear-gradient(135deg,var(--columbia-blue),var(--columbia-navy));
+            display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:20px;
+            box-shadow:0 6px 20px rgba(11,61,145,0.12);
+            flex:0 0 110px;
+        }
+        .avatar img{width:100%;height:100%;object-fit:cover;border-radius:14px;display:block}
+        .meta h1{margin:0;font-size:22px;color:var(--columbia-navy);}
+        .meta p{margin:4px 0 0;color:var(--muted);font-size:14px}
+
+        .cta{display:flex;gap:10px;align-items:center}
+        .btn{
+            background:var(--columbia-navy);
+            color:white;padding:10px 14px;border-radius:10px;border:none;font-weight:600;cursor:pointer;
+            box-shadow:0 6px 18px rgba(11,61,145,0.12);
+        }
+        .ghost{
+            background:transparent;border:1px solid rgba(11,61,145,0.12);padding:8px 12px;border-radius:10px;color:var(--columbia-navy);
+        }
+
+        /* Layout */
+        .grid{
+            display:grid;
+            grid-template-columns: 320px 1fr;
+            gap:22px;
+            margin-top:18px;
+        }
+        .card{
+            background:var(--card-bg);
+            border-radius:12px;
+            padding:18px;
+            box-shadow:0 6px 18px rgba(11,61,145,0.06);
+        }
+        .small{font-size:13px;color:var(--muted)}
+
+        /* Left column */
+        .left .stat{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+        .tag{display:inline-block;background:linear-gradient(90deg,var(--columbia-blue),var(--accent));color:white;padding:6px 10px;border-radius:999px;font-weight:600;font-size:13px}
+
+        .left .links{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+        .links a{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--columbia-navy);font-weight:600}
+        .muted{color:var(--muted);font-size:14px}
+
+        /* Right column content */
+        h2{font-family:"Merriweather",serif;color:var(--columbia-navy);margin:0 0 10px}
+        .about{line-height:1.6;color:#133047;margin-bottom:14px}
+        .exp{margin-bottom:12px}
+        .exp .role{display:flex;justify-content:space-between;align-items:center}
+        .role .title{font-weight:700;color:#0b3350}
+        .period{color:var(--muted);font-size:13px}
+
+        .skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+        .skill{background:var(--bg);padding:6px 10px;border-radius:8px;color:#0b3350;font-weight:600;font-size:13px}
+
+        footer{margin-top:28px;padding:18px;text-align:center;color:var(--muted);font-size:13px}
+
+        /* Responsive */
+        @media(max-width:880px){
+            .grid{grid-template-columns: 1fr; padding-bottom:30px}
+            .hero::after{font-size:64px;right:4%;top:6%}
+            .avatar{width:88px;height:88px}
+        }
+        /* Theme toggle */
+        .theme-toggle{background:transparent;border:1px solid rgba(11,61,145,0.08);padding:8px 10px;border-radius:8px;cursor:pointer;font-size:16px}
+        .theme-toggle[aria-pressed="true"]{background:rgba(11,61,145,0.06)}
+
+        /* Dark theme variables & readable color overrides */
+        [data-theme="dark"]{
+            --columbia-blue:#1b3a5a;
+            --columbia-navy:#d7e7f6; /* lighter for headings/text */
+            --accent:#6EA0FF;
+            --muted:#9aa6b3;
+            --bg:#05121a;
+            --card-bg:#081826;
+            --glass: rgba(2,6,12,0.5);
+        }
+        [data-theme="dark"] body{
+            color:#e6f2ff;
+            background:linear-gradient(180deg,#071428 0%, #071826 60%);
+        }
+        [data-theme="dark"] h2,
+        [data-theme="dark"] .role .title,
+        [data-theme="dark"] .meta h1{color:var(--columbia-navy)}
+        [data-theme="dark"] .muted,
+        [data-theme="dark"] .small,
+        [data-theme="dark"] footer{color:var(--muted)}
+        [data-theme="dark"] .skill{background:rgba(255,255,255,0.04);color:var(--columbia-navy)}
+        [data-theme="dark"] .tag{color:#ffffff}
+        [data-theme="dark"] .site-nav .links a{color:#dff4ff}
+        [data-theme="dark"] .btn{background:var(--accent);color:#042034;box-shadow:0 6px 18px rgba(110,160,255,0.12)}
+        [data-theme="dark"] .ghost{border-color:rgba(255,255,255,0.08);color:var(--columbia-navy);background:transparent}
+        [data-theme="dark"] .site-nav .brand{background:var(--card-bg)}
+        [data-theme="dark"] .logo{color:#fff}
+        [data-theme="dark"] .about{color:#dbeeff}
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="container">
+            <nav class="site-nav" role="navigation" aria-label="Main navigation">
+                    <div class="links">
+                    <a href="#">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#recap-2025">Recap-2025</a>
+                    <a href="#icdc-forms">ICDC Forms</a>
+                    <a href="mailto:pratiktanikella@gmail.com" style="padding:8px 12px">Contact</a>
+                </div>
+                <button id="themeToggle" class="theme-toggle" aria-pressed="false" aria-label="Toggle theme">🌙</button>
+                    <div class="brand" aria-hidden="true">
+                    <div class="logo">DECA</div>
+                </div>
+            </nav>
+            <div class="top">
+                <div class="profile">
+                    <div class="avatar" aria-hidden="true">
+                        <img src="collegiatedeca.png" alt="Collegiate DECA Logo" />
+                    </div>
+                    <div class="meta">
+                        <h1>Collegiate DECA — University of North Carolina at Charlotte</h1>
+                        <p>Chapter 128C-26687 · Collegiate</p>
+                        <p class="small">Charlotte, North Carolina · UNC Charlotte Chapter</p>
+                    </div>
+                </div>
+
+                    <div class="cta">
+                        <a href="mailto:pratiktanikella@gmail.com" class="btn">Contact</a>
+                        <button id="addCalendarBtn" class="ghost" style="cursor:pointer">Add to Calendar</button>
+                    </div>
+            </div>
+
+            <div class="grid">
+                <aside class="left">
+                    <div class="card">
+                        <div class="small">Chapter</div>
+                        <div style="margin-top:10px">
+                            <div class="tag">128C-26687</div>
+                        </div>
+
+                        <hr style="border:none;border-top:1px solid #eef4f7;margin:14px 0">
+
+                        <div class="small">Contact</div>
+                        <div style="font-weight:700;margin:6px 0">pratiktanikella@gmail.com</div>
+
+                        <div class="links">
+                            <a href="#officers" title="Officers">Chapter Officers</a>
+                            <a href="#affiliation" title="Affiliation">Collegiate DECA Affiliation</a>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top:16px">
+                        <div class="small">Affiliation</div>
+                        <div style="margin-top:8px">
+                            <div style="font-weight:700">Collegiate DECA</div>
+                            <div class="muted">University of North Carolina at Charlotte</div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top:16px">
+                        <div class="small">Upcoming Event</div>
+                        <div style="margin-top:8px">
+                            <div style="font-weight:700">ICDC — Louisville, KY</div>
+                            <div class="muted">April 18–21, 2026 · 1,200 participants</div>
+                        </div>
+                    </div>
+                </aside>
+
+                <main>
+                    <section id="conference" class="card">
+                        <h2>Collegiate DECA International Career Development Conference</h2>
+                        <p class="about">Join 1,200 Collegiate DECA members engaged in competitive events, professional development academies, networking and more.</p>
+                        <div style="margin-top:10px">
+                            <a href="icdcreg.pdf" class="btn" download>View Registration Guide</a>
+                            <span style="margin-left:12px;font-weight:700">April 18-21, 2026 · Louisville, KY</span>
+                        </div>
+                    </section>
+
+                    <section id="highlights" class="card" style="margin-top:16px">
+                        <h2>Conference Highlights</h2>
+
+                        <div class="exp">
+                            <div class="role">
+                                <div>
+                                    <div class="title">Professional Development Series</div>
+                                    <div class="muted">Engage with business executives through full-day workshops, panels and sessions.</div>
+                                </div>
+                                <div class="period">Conference</div>
+                            </div>
+                        </div>
+
+                        <div class="exp" style="margin-top:12px">
+                            <div class="role">
+                                <div>
+                                    <div class="title">Competitive Events</div>
+                                    <div class="muted">1,000 Collegiate DECA members demonstrate career knowledge and skills in competition.</div>
+                                </div>
+                                <div class="period">Events</div>
+                            </div>
+                        </div>
+
+                        <div class="exp" style="margin-top:12px">
+                            <div class="role">
+                                <div>
+                                    <div class="title">Career Exhibits & Networking</div>
+                                    <div class="muted">Network with corporate supporters and educational partners in the College and Career Exhibits.</div>
+                                </div>
+                                <div class="period">Exhibits</div>
+                            </div>
+                        </div>
+
+                        <div class="exp" style="margin-top:12px">
+                            <div class="role">
+                                <div>
+                                    <div class="title">And Much More!</div>
+                                    <div class="muted">Sales Challenge, LinkedIn Photo Booth, election of new executive officers and special programs.</div>
+                                </div>
+                                <div class="period">Extras</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="recap-2025" class="card" style="margin-top:16px">
+                        <h2>Recap — 2025</h2>
+                        <p class="about">ICDC is the International Career Development Conference which was held at the Marriott Marquis from April 5–8, 2025. As a newly founded chapter, we were recognized on stage. Fourteen members represented UNC Charlotte at the international level and we had six finalists.</p>
+
+                        <h3 style="margin-top:12px">Events & Participation</h3>
+                        <div class="muted">Members participated in events including Advertising Campaign, Business Research, Start-Up Business Plan, Human Resources Management Case Study, and more.</div>
+
+                        <h3 style="margin-top:12px">Executive Board</h3>
+                        <ul style="margin:8px 0 0 18px;color:#133047">
+                            <li>Nolan — VP of Outreach</li>
+                            <li>AJ — VP of Marketing</li>
+                            <li>Tejhas — VP of Finance</li>
+                            <li>Pratik Tanikella — Co-President</li>
+                        </ul>
+
+                        <h3 style="margin-top:12px">Board Accomplishments</h3>
+                        <ul style="margin:8px 0 0 18px;color:#133047">
+                            <li>All dues were paid within the allotted time</li>
+                            <li>Prepared students for competition (presentations, meetings, guest speakers)</li>
+                            <li>Managed hotel logistics and chapter background setup</li>
+                        </ul>
+
+                        <h3 style="margin-top:12px">Notable Results</h3>
+                        <p class="muted">AJ participated and placed in two events: Human Resources Management Case Study and Advertising Campaign (Prepared Event). Pratik & Arnav participated in Business Research and placed 8th nationally — Pratik led much of the written submission while Arnav led app development. Tejhas also competed in Start-Up Business and placed third overall. Tejhas competed individually for the first time at this scale and succeeded.</p>
+                        <p class="about" style="margin-top:10px">This experience allowed members to network, work with others, and represent UNC Charlotte on the DECA stage.</p>
+
+                        <div style="margin-top:14px">
+                            <h3>Presentation</h3>
+                            <div style="margin-top:8px">
+                                <iframe src="https://docs.google.com/presentation/d/1MzNsjYUR004NvFt_JE-58LEd79GI57dXBpmekp9mQI0/embed?start=false&loop=false&delayms=3000" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" style="width:100%;height:440px;border-radius:8px;border:1px solid rgba(11,61,145,0.06)"></iframe>
+                            </div>
+                            <div style="margin-top:8px">
+                                <a href="https://docs.google.com/presentation/d/1MzNsjYUR004NvFt_JE-58LEd79GI57dXBpmekp9mQI0/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn">Open in Google Slides</a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="classroom" class="card" style="margin-top:16px">
+                        <h2>Classroom Connection</h2>
+                        <p class="about">Extend learning beyond the classroom. As part of the Competitive Events Program, members participate in the Professional Development Series. Sessions take place on Sunday and are required for all competitors. Topics include:</p>
+                        <div class="small" style="margin-top:8px">
+                            <ul style="margin:8px 0 0 18px;color:#133047">
+                                <li>Business Management & Administration</li>
+                                <li>Entrepreneurship</li>
+                                <li>Finance & Accounting</li>
+                                <li>Hospitality & Tourism</li>
+                                <li>Marketing & Communications</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="dates" class="card" style="margin-top:16px">
+                        <h2>Important Dates</h2>
+                        <div class="small" style="margin-top:8px">
+                            <strong>FEBRUARY 15</strong> — Collegiate DECA Membership submissions & dues deadline for ICDC competitions<br>
+                            <strong>MARCH 10</strong> — Conference registration and hotel reservations due to DECA Inc.<br>
+                            <strong>MARCH 13-23</strong> — ICDC-qualifying prepared event submissions due<br>
+                            <strong>MARCH 23</strong> — Deadline for registration changes<br>
+                            <strong>APRIL 18</strong> — Deadline for registration refunds<br>
+                            <strong>APRIL 18-21</strong> — Collegiate DECA International Career Development Conference
+                        </div>
+                    </section>
+
+                    <section id="schedule" class="card" style="margin-top:16px">
+                        <h2>Conference Schedule (Selected)</h2>
+                        <div class="exp">
+                            <div class="role"><div>
+                                <div class="title">SATURDAY — APRIL 18</div>
+                                <div class="muted">All Day: Explore Louisville · 2:00 PM - 6:00 PM Conference Registration + Shop DECA · 7:00 PM Parade Rehearsal</div>
+                            </div></div>
+                        </div>
+
+                        <div class="exp" style="margin-top:12px">
+                            <div class="role"><div>
+                                <div class="title">SUNDAY — APRIL 19</div>
+                                <div class="muted">8:30 AM Grand Opening Session · 10:15 AM Professional Development Series (Required) · 1:30 PM Individual Case Study Briefings + Exams</div>
+                            </div></div>
+                        </div>
+
+                        <div class="exp" style="margin-top:12px">
+                            <div class="role"><div>
+                                <div class="title">MONDAY — APRIL 20</div>
+                                <div class="muted">7:30 AM - 5:00 PM Shop DECA · 8:00 AM - 5:00 PM Preliminary Competition · 2:00 PM Learn from the Pros</div>
+                            </div></div>
+                        </div>
+
+                        <div class="exp" style="margin-top:12px">
+                            <div class="role"><div>
+                                <div class="title">TUESDAY — APRIL 21</div>
+                                <div class="muted">8:00 AM - 9:30 AM Preliminary Awards · 9:00 AM - 6:00 PM Final Competition · 8:00 PM Grand Awards Session</div>
+                            </div></div>
+                        </div>
+                    </section>
+
+                    <section id="registration" class="card" style="margin-top:16px">
+                        <h2>Registration</h2>
+                        <p class="about">For registration details, hotel reservations, and the official guide, contact your Chartered Association Advisor or visit the Collegiate DECA registration portal. Chapters should follow DECA Inc. deadlines.</p>
+                    </section>
+
+                    <section id="officers" class="card" style="margin-top:16px">
+                        <h2>Executive Board</h2>
+                        <div style="margin-top:8px;color:#133047">
+                            <ul style="margin:6px 0 0 18px">
+                                <li>Nolan — VP of Outreach</li>
+                                <li>Amorion Armstrong — VP of Marketing</li>
+                                <li>Tejhas Annamalai — VP of Finance</li>
+                                <li>Pratik Tanikella — Co-President</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="icdc-forms" class="card" style="margin-top:16px">
+                        <h2>DECA Membership Portal Form (For ICDC)</h2>
+                        <p class="about">This form is for eligibility to compete. Please fill out the information accurately. We need this form filled out BEFORE our Second Meeting. Membership Dues are $20. Submissions will be sent via email.</p>
+
+                        <form action="mailto:pratiktanikella@gmail.com" method="post" enctype="text/plain" style="margin-top:12px">
+                            <label>First Name<br><input type="text" name="First Name" required style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #e6eef4"></label>
+                            <label style="display:block;margin-top:10px">Last Name<br><input type="text" name="Last Name" required style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #e6eef4"></label>
+
+                            <label style="display:block;margin-top:10px">Year<br>
+                                <select name="Year" required style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #e6eef4">
+                                    <option>Freshman</option>
+                                    <option>Sophomore</option>
+                                    <option>Junior</option>
+                                    <option>Senior</option>
+                                    <option>Graduate</option>
+                                </select>
+                            </label>
+
+                            <div style="margin-top:10px">
+                                <div class="small">Gender</div>
+                                <label style="margin-right:10px"><input type="radio" name="Gender" value="Male"> Male</label>
+                                <label style="margin-right:10px"><input type="radio" name="Gender" value="Female"> Female</label>
+                                <label style="margin-right:10px"><input type="radio" name="Gender" value="Prefer not to say"> Prefer not to say</label>
+                                <label style="display:block;margin-top:8px">Other: <input type="text" name="Gender Other" style="padding:6px;border-radius:6px;border:1px solid #e6eef4"></label>
+                            </div>
+
+                            <label style="display:block;margin-top:10px">Demographic<br>
+                                <select name="Demographic" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #e6eef4">
+                                    <option>American Indian/Alaskan Native</option>
+                                    <option>Asian</option>
+                                    <option>African-American</option>
+                                    <option>Latino-Hispanic</option>
+                                    <option>Middle-Eastern</option>
+                                    <option>White/Caucasian</option>
+                                    <option>Opt-Out</option>
+                                    <option>Other</option>
+                                </select>
+                            </label>
+
+                            <label style="display:block;margin-top:10px">Cell Phone<br><input type="tel" name="Cell Phone" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #e6eef4"></label>
+
+                            <label style="display:block;margin-top:10px">Date of Birth<br><input type="date" name="Date of Birth" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #e6eef4"></label>
+
+                            <label style="display:block;margin-top:10px">T-Shirt Size<br>
+                                <select name="T-Shirt Size" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #e6eef4">
+                                    <option>XS</option>
+                                    <option>S</option>
+                                    <option>M</option>
+                                    <option>L</option>
+                                    <option>XL</option>
+                                    <option>XXL</option>
+                                </select>
+                            </label>
+
+                            <label style="display:block;margin-top:10px">Years as a Member<br>
+                                <select name="Years as a Member" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #e6eef4">
+                                    <option>0</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                </select>
+                            </label>
+
+                            <div style="margin-top:14px;display:flex;gap:10px">
+                                <button type="submit" class="btn">Submit Form</button>
+                                <button type="reset" class="ghost">Reset</button>
+                            </div>
+                        </form>
+                        <div class="small" style="margin-top:10px;color:var(--muted)">Submissions will open your email client and send the form contents to <strong>pratiktanikella@gmail.com</strong>.</div>
+                    </section>
+
+                    <section id="recap-photo" class="card" style="margin-top:16px">
+                        <h2>Recap Photo</h2>
+                        <div style="text-align:center;margin-top:12px">
+                            <img src="/Users/pratiktanikella/Downloads/deca_grouppic.png" alt="DECA Group Photo" style="max-width:100%;height:auto;border-radius:10px;box-shadow:0 6px 18px rgba(11,61,145,0.08)">
+                            <div class="small" style="margin-top:8px;color:var(--muted)">DECA at ICDC 2025 — UNC Charlotte Chapter</div>
+                        </div>
+                    </section>
+
+                    <footer>
+                        Built with a Columbia color palette • UNC Charlotte Collegiate DECA
+                    </footer>
+                </main>
+            </div>
+        </div>
+    </header>
+    <script>
+        (function(){
+            const btn = document.getElementById('themeToggle');
+            const root = document.documentElement;
+            function setTheme(t){
+                if(t === 'dark'){
+                    root.setAttribute('data-theme','dark');
+                    btn.textContent = '☀️';
+                    btn.setAttribute('aria-pressed','true');
+                } else {
+                    root.removeAttribute('data-theme');
+                    btn.textContent = '🌙';
+                    btn.setAttribute('aria-pressed','false');
+                }
+                try{ localStorage.theme = t }catch(e){}
+            }
+            const stored = (function(){ try{ return localStorage.theme }catch(e){return null} })();
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setTheme(stored || (prefersDark ? 'dark' : 'light'));
+            btn.addEventListener('click', function(){
+                const isDark = root.getAttribute('data-theme') === 'dark';
+                setTheme(isDark ? 'light' : 'dark');
+            });
+        })();
+    </script>
+    <script>
+    // Generate and download an .ics file with events so users can import to Google Calendar
+    (function(){
+        function pad(n){return n<10? '0'+n : n}
+        function formatDateTime(dt){
+            return dt.getFullYear().toString() + pad(dt.getMonth()+1) + pad(dt.getDate()) + 'T' + pad(dt.getHours()) + pad(dt.getMinutes()) + pad(dt.getSeconds());
+        }
+        function formatDate(dt){
+            return dt.getFullYear().toString() + pad(dt.getMonth()+1) + pad(dt.getDate());
+        }
+
+        const events = [
+            {title:'Collegiate DECA Membership Dues Deadline', start:'20260215', allDay:true},
+            {title:'Conference Registration & Hotel Deadline', start:'20260310', allDay:true},
+            {title:'ICDC-Qualifying Prepared Event Submissions (window start)', start:'20260313', end:'20260323', allDay:true},
+            {title:'Deadline for Registration Changes', start:'20260323', allDay:true},
+            {title:'Deadline for Registration Refunds', start:'20260418', allDay:true},
+            {title:'Collegiate DECA ICDC 2026 (Conference)', start:'20260418', end:'20260421', allDay:true},
+            {title:'Conference Registration + Shop DECA', start:'20260418T140000', end:'20260418T180000'},
+            {title:'Parade of Associations Rehearsal', start:'20260418T190000', end:'20260418T193000'},
+            {title:'Grand Opening Session', start:'20260419T083000', end:'20260419T100000'},
+            {title:'Professional Development Series (Required)', start:'20260419T101500', end:'20260419T113000'},
+            {title:'Preliminary Competition (Day)', start:'20260420T080000', end:'20260420T170000'},
+            {title:'Shop DECA (Mon)', start:'20260420T073000', end:'20260420T170000'},
+            {title:'Learn from the Pros', start:'20260420T140000', end:'20260420T160000'},
+            {title:'Final Competition', start:'20260421T090000', end:'20260421T180000'},
+            {title:'Grand Awards Session', start:'20260421T200000', end:'20260421T220000'}
+        ];
+
+        function buildICS(){
+            const prodid = '-//UNC Charlotte Collegiate DECA//ICDC//EN';
+            let ics = 'BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:' + prodid + '\r\nCALSCALE:GREGORIAN\r\n';
+            const now = new Date();
+            const dtstamp = formatDateTime(now) + 'Z';
+
+            events.forEach(function(ev, idx){
+                const uid = 'uncc-deca-' + idx + '-' + Date.now() + '@unccdeca';
+                ics += 'BEGIN:VEVENT\r\n';
+                ics += 'UID:' + uid + '\r\n';
+                ics += 'DTSTAMP:' + dtstamp + '\r\n';
+                if(ev.allDay){
+                    ics += 'DTSTART;VALUE=DATE:' + ev.start + '\r\n';
+                    // For multi-day all-day events, set DTEND to day after end when provided
+                    if(ev.end){
+                        // DTEND is non-inclusive per RFC: set to day after end
+                        const endDate = new Date(ev.end.substring(0,4), parseInt(ev.end.substring(4,6))-1, parseInt(ev.end.substring(6,8)) + 1);
+                        ics += 'DTEND;VALUE=DATE:' + formatDate(endDate) + '\r\n';
+                    } else {
+                        // single-day all-day event: DTEND = next day
+                        const s = new Date(ev.start.substring(0,4), parseInt(ev.start.substring(4,6))-1, parseInt(ev.start.substring(6,8)) + 1);
+                        ics += 'DTEND;VALUE=DATE:' + formatDate(s) + '\r\n';
+                    }
+                } else {
+                    // timed event: start/end formatted as YYYYMMDDTHHMMSS
+                    const s = ev.start.length === 8 ? ev.start + 'T000000' : ev.start + '00';
+                    const e = ev.end.length === 8 ? ev.end + 'T000000' : ev.end + '00';
+                    ics += 'DTSTART:' + s + '\r\n';
+                    ics += 'DTEND:' + e + '\r\n';
+                }
+                ics += 'SUMMARY:' + ev.title + '\r\n';
+                ics += 'END:VEVENT\r\n';
+            });
+            ics += 'END:VCALENDAR\r\n';
+            return ics;
+        }
+
+        function downloadICS(filename, content){
+            const blob = new Blob([content], {type: 'text/calendar;charset=utf-8'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 1000);
+        }
+
+        document.getElementById('addCalendarBtn').addEventListener('click', function(){
+            const ics = buildICS();
+            downloadICS('ICDC_Events_2026.ics', ics);
+            // brief UX hint
+            const note = document.createElement('div');
+            note.textContent = 'Downloaded ICDC_Events_2026.ics — import into Google Calendar or your preferred calendar.';
+            note.style.position = 'fixed'; note.style.right = '18px'; note.style.bottom = '18px'; note.style.background = '#042a4a'; note.style.color = 'white'; note.style.padding = '10px 14px'; note.style.borderRadius = '8px'; note.style.boxShadow='0 6px 18px rgba(11,61,145,0.12)';
+            document.body.appendChild(note);
+            setTimeout(()=> note.remove(), 6000);
+        });
+    })();
+    </script>
+</body>
+</html>
