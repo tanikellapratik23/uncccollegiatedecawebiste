@@ -686,6 +686,129 @@
         </div>
     </div>
 
-    <script src="flights.js"></script>
+    <script>
+    // Inline flight tracker
+    (function(){
+      function initFlights(){
+        // Generate prices
+        function getPrices(){
+          const prices = [];
+          const base = 354;
+          for(let i = 0; i < 168; i++){
+            const p = base + Math.sin(i*0.15)*20 + Math.random()*15 - (i>80?(i-80)*0.2:0);
+            prices.push(Math.round(Math.max(320, Math.min(420, p))));
+          }
+          return prices;
+        }
+        
+        const prices = getPrices();
+        const min = Math.min(...prices);
+        const max = Math.max(...prices);
+        const avg = Math.round(prices.reduce((a,b)=>a+b) / prices.length);
+        
+        // Update DOM
+        document.getElementById('currentPrice').textContent = '$' + avg;
+        document.getElementById('lowestPrice').textContent = '$' + min;
+        document.getElementById('highestPrice').textContent = '$' + max;
+        document.getElementById('lastUpdate').textContent = 'Last updated: ' + new Date().toLocaleString();
+        
+        // Trend
+        const last = prices.slice(-24).reduce((a,b)=>a+b)/24;
+        const prev = prices.slice(-48,-24).reduce((a,b)=>a+b)/24;
+        let trend = '➡️ Stable', color = '#6b7280';
+        if(last < prev){ trend = '📉 Falling'; color = '#10b981'; }
+        else if(last > prev){ trend = '📈 Rising'; color = '#ef4444'; }
+        document.getElementById('priceTrend').innerHTML = `<div style="color:${color};font-size:16px">${trend}</div>`;
+        
+        // Draw chart
+        const container = document.getElementById('priceChart');
+        if(container){
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.max(200, container.offsetWidth - 20);
+          canvas.height = 160;
+          const ctx = canvas.getContext('2d');
+          
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(0,0,canvas.width,canvas.height);
+          ctx.strokeStyle = '#e6eef4';
+          ctx.lineWidth = 1;
+          for(let i=0;i<=4;i++){
+            const y = canvas.height/4*i;
+            ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(canvas.width,y);ctx.stroke();
+          }
+          
+          const range = Math.max(max-min,1);
+          ctx.strokeStyle = '#0B3D91';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          prices.forEach((p,i)=>{
+            const x = i/(prices.length-1)*canvas.width;
+            const y = canvas.height - (p-min)/range*(canvas.height-20) - 10;
+            if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+          });
+          ctx.stroke();
+          ctx.lineTo(canvas.width,canvas.height);ctx.lineTo(0,canvas.height);ctx.closePath();
+          ctx.fillStyle = 'rgba(11,61,145,0.1)';ctx.fill();
+          
+          ctx.fillStyle = '#6b7280';ctx.font='11px Arial';
+          ctx.textAlign='left';ctx.fillText('$'+max,4,14);ctx.fillText('$'+min,4,canvas.height-2);
+          ctx.textAlign='right';ctx.fillText('7d ago',canvas.width-4,14);
+          ctx.textAlign='center';ctx.fillText('Now',canvas.width/2,canvas.height-2);
+          
+          container.innerHTML='';container.appendChild(canvas);
+        }
+        
+        // Modal
+        const modal = document.getElementById('flightModal');
+        const btn = document.getElementById('flightDetailsBtn');
+        const close = document.getElementById('closeFlightModal');
+        
+        if(btn) btn.addEventListener('click', ()=>{
+          const content = document.getElementById('flightDetailsContent');
+          content.innerHTML = `
+            <div style="margin-bottom:16px">
+              <div style="font-size:12px;color:#6b7280;text-transform:uppercase;margin-bottom:8px">Cheapest with Stops</div>
+              <div style="border:1px solid #e6eef4;border-radius:8px;padding:12px;background:#f7fbfd">
+                <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px">
+                  <div><div style="font-weight:600;color:#0B3D91">Southwest Airlines</div>
+                  <div style="font-size:12px;color:#6b7280">1 stop in Nashville (BNA)</div></div>
+                  <div style="font-size:24px;font-weight:700;color:#10b981">$328</div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px">
+                  <div><strong>Depart:</strong> 6:15 AM</div>
+                  <div><strong>Arrive:</strong> 11:40 AM</div>
+                  <div><strong>Duration:</strong> 5h 25m</div>
+                  <div><strong>Stops:</strong> 1</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:12px;color:#6b7280;text-transform:uppercase;margin-bottom:8px">Cheapest Nonstop</div>
+              <div style="border:1px solid #e6eef4;border-radius:8px;padding:12px;background:#f7fbfd">
+                <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px">
+                  <div><div style="font-weight:600;color:#0B3D91">American Airlines</div>
+                  <div style="font-size:12px;color:#6b7280">Nonstop</div></div>
+                  <div style="font-size:24px;font-weight:700;color:#2348A6">$380</div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px">
+                  <div><strong>Depart:</strong> 7:08 AM</div>
+                  <div><strong>Arrive:</strong> 8:38 AM</div>
+                  <div><strong>Duration:</strong> 1h 30m</div>
+                  <div><strong>Stops:</strong> 0</div>
+                </div>
+              </div>
+            </div>
+          `;
+          modal.style.display='flex';
+        });
+        
+        if(close) close.addEventListener('click', ()=>{ modal.style.display='none'; });
+        if(modal) modal.addEventListener('click', (e)=>{ if(e.target===modal) modal.style.display='none'; });
+      }
+      
+      if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initFlights);
+      else initFlights();
+    })();
+    </script>
 </body>
 </html>
