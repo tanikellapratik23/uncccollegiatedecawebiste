@@ -7,20 +7,20 @@
   const sampleFlights = {
     withStops: {
       airline: 'Southwest Airlines',
-      price: 189,
+      price: 328,
       stops: 1,
-      duration: '5h 45m',
-      departure: '7:15 AM',
-      arrival: '1:00 PM (local)',
-      details: '1 stop in Nashville'
+      duration: '5h 25m',
+      departure: '6:15 AM',
+      arrival: '11:40 AM',
+      details: '1 stop in Nashville (BNA)'
     },
     nonstop: {
       airline: 'American Airlines',
-      price: 256,
+      price: 380,
       stops: 0,
-      duration: '2h 45m',
-      departure: '8:30 AM',
-      arrival: '11:15 AM (local)',
+      duration: '1h 30m',
+      departure: '7:08 AM',
+      arrival: '8:38 AM',
       details: 'Nonstop flight'
     }
   };
@@ -28,15 +28,15 @@
   // Simulated price data
   function generatePriceData(){
     const now = Date.now();
-    const basePrice = 240;
+    const basePrice = 354; // Average of nonstop ($380) and cheapest stops ($328)
     const prices = [];
     
     for(let i = 0; i < 168; i++){
       const timeOffset = now - (168 - i) * 3600000;
-      const noise = Math.sin(i * 0.15) * 30 + Math.random() * 20;
-      const trend = i > 80 ? (i - 80) * 0.5 : -(80 - i) * 0.3;
+      const noise = Math.sin(i * 0.15) * 15 + Math.random() * 10;
+      const trend = i > 80 ? (i - 80) * 0.3 : -(80 - i) * 0.2;
       const price = Math.round(basePrice + noise + trend);
-      prices.push({time: timeOffset, price: Math.max(180, price)});
+      prices.push({time: timeOffset, price: Math.max(320, price)});
     }
     return prices;
   }
