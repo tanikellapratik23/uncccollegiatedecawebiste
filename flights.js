@@ -1,5 +1,7 @@
 // Flight price tracking - Charlotte (CLT) → Louisville (SDF)
 (function(){
+  console.log('flights.js loaded');
+  
   const PRICE_STORAGE_KEY = 'deca_flight_prices';
   
   const flightData = {
@@ -10,7 +12,6 @@
   function generatePrices(){
     const prices = [];
     const base = 354;
-    const now = Date.now();
     for(let i = 0; i < 168; i++){
       const p = base + Math.sin(i * 0.15) * 20 + Math.random() * 15 - (i > 80 ? (i-80)*0.2 : 0);
       prices.push(Math.max(320, Math.min(420, Math.round(p))));
@@ -29,14 +30,27 @@
   }
   
   function updateDisplay(){
+    console.log('updateDisplay called');
     const prices = getPrices();
-    if(!prices || prices.length === 0) return;
+    console.log('prices:', prices ? prices.length + ' items' : 'none');
+    
+    if(!prices || prices.length === 0) {
+      console.log('No prices, returning');
+      return;
+    }
     
     const min = Math.min(...prices);
     const max = Math.max(...prices);
     const avg = Math.round(prices.reduce((a,b)=>a+b) / prices.length);
     
-    const el = (id) => document.getElementById(id);
+    console.log('min:', min, 'max:', max, 'avg:', avg);
+    
+    const el = (id) => {
+      const element = document.getElementById(id);
+      console.log('el(' + id + '):', element ? 'found' : 'NOT FOUND');
+      return element;
+    };
+    
     if(el('currentPrice')) el('currentPrice').textContent = '$' + avg;
     if(el('lowestPrice')) el('lowestPrice').textContent = '$' + min;
     if(el('highestPrice')) el('highestPrice').textContent = '$' + max;
@@ -54,7 +68,10 @@
   
   function drawChart(prices){
     const container = document.getElementById('priceChart');
-    if(!container || prices.length < 2) return;
+    if(!container || prices.length < 2) {
+      console.log('drawChart: container or prices missing');
+      return;
+    }
     
     const canvas = document.createElement('canvas');
     canvas.width = Math.max(200, container.offsetWidth - 20);
@@ -138,6 +155,7 @@
   }
   
   function init(){
+    console.log('init() called, DOM ready state:', document.readyState);
     updateDisplay();
     setInterval(updateDisplay, 3600000);
     
@@ -145,13 +163,20 @@
     const modal = document.getElementById('flightModal');
     const close = document.getElementById('closeFlightModal');
     
+    console.log('button:', btn ? 'found' : 'NOT FOUND');
+    console.log('modal:', modal ? 'found' : 'NOT FOUND');
+    
     if(btn) btn.addEventListener('click', showDetails);
     if(close) close.addEventListener('click', () => { if(modal) modal.style.display='none'; });
     if(modal) modal.addEventListener('click', (e) => { if(e.target===modal) modal.style.display='none'; });
   }
   
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else setTimeout(init, 100);
+  console.log('setting up init, readyState:', document.readyState);
+  if(document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    setTimeout(init, 100);
+  }
 })();
 
   

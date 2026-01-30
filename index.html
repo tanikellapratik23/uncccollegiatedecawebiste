@@ -1075,14 +1075,46 @@
           messagesArea.scrollTop = messagesArea.scrollHeight;
         }
 
-        function handleQuestion(q) {
+        async function handleQuestion(q) {
           if(!q.trim()) return;
           addMessage(q, true);
           input.value = '';
-          setTimeout(() => {
+          
+          // Show loading indicator
+          addMessage('⏳ Thinking...', false);
+          
+          try {
+            // Try to call the AI API first
+            const response = await fetch('/api/chat', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ question: q })
+            });
+            
+            // Remove the loading message
+            const lastMsg = messagesArea.lastChild;
+            if(lastMsg && lastMsg.textContent === '⏳ Thinking...') {
+              messagesArea.removeChild(lastMsg);
+            }
+            
+            if(response.ok) {
+              const data = await response.json();
+              addMessage(data.answer, false);
+            } else {
+              // Fallback to knowledge base if AI fails
+              const answer = findAnswer(q);
+              addMessage(answer, false);
+            }
+          } catch(err) {
+            // Fallback to knowledge base on error
+            console.error('AI error:', err);
+            const lastMsg = messagesArea.lastChild;
+            if(lastMsg && lastMsg.textContent === '⏳ Thinking...') {
+              messagesArea.removeChild(lastMsg);
+            }
             const answer = findAnswer(q);
             addMessage(answer, false);
-          }, 300);
+          }
         }
 
         sendBtn.addEventListener('click', () => {
