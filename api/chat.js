@@ -18,10 +18,13 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'AI service not configured' });
     }
 
-    // Try primary model, then a fallback model if needed
-    const models = [
+    // Allow selecting the HF model via environment variable `HF_MODEL`.
+    // If not provided, try a short list of models (note some may require access).
+    const envModel = process.env.HF_MODEL;
+    const models = envModel ? [envModel] : [
       'mistralai/Mistral-7B-Instruct-v0.1',
-      'gpt2'
+      'google/flan-t5-large',
+      'google/flan-t5-base'
     ];
 
     let finalAnswer = null;
@@ -71,7 +74,8 @@ export default async function handler(req, res) {
       // Graceful fallback: inform client AI unavailable so frontend can use knowledge base
       console.error('HF inference failed:', lastError);
       finalAnswer = null; // indicate failure to caller
-      return res.status(502).json({ error: 'AI service unavailable', details: lastError });
+      const help = 'AI service unavailable. If you are using Hugging Face, set the HF_MODEL env var to a supported model (e.g. google/flan-t5-large) in Vercel and ensure your HF_TOKEN has access.';
+      return res.status(502).json({ error: 'AI service unavailable', details: lastError, help });
     }
 
     // Clean up answer if it includes prompt text
