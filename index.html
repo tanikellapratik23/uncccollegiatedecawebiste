@@ -882,64 +882,113 @@
     (function(){
       const knowledgeBase = {
         'what is icdc': {
-          keywords: ['what', 'icdc', 'is'],
-          answer: '🎓 ICDC is the International Career Development Conference — the pinnacle of the Collegiate DECA year. It\'s where collegiate competitors gather to compete in business events, attend professional development sessions, network with industry leaders, and earn recognition at the international level. It combines competition, learning, and career-building all in one event!'
+          keywords: ['what', 'icdc', 'is', 'conference'],
+          answer: '🎓 ICDC (International Career Development Conference) is the highest-level conference and competition for Collegiate DECA members. It combines competitive business events, professional development, networking, and awards. It\'s where the best collegiate business students compete at the national level!'
         },
         'when is icdc 2026': {
-          keywords: ['when', 'icdc', 'date', '2026', 'april'],
-          answer: '📅 Collegiate DECA ICDC 2026 is April 18–21, 2026 in Louisville, Kentucky! We recommend arriving by April 17 and departing April 22 to make the most of the experience.'
+          keywords: ['when', 'icdc', 'date', '2026', 'april', 'time'],
+          answer: '📅 Collegiate DECA ICDC 2026 takes place in April 2026 in Louisville, Kentucky, typically over 4 days (Saturday–Tuesday). We recommend arriving by April 17 and departing April 22.'
         },
-        'where is icdc': {
-          keywords: ['where', 'location', 'icdc', 'louisville', 'city'],
+        'where is icdc louisville': {
+          keywords: ['where', 'location', 'icdc', 'louisville', 'city', 'venue'],
           answer: '📍 ICDC 2026 is in Louisville, Kentucky, USA. The conference hotel is Louisville Marriott Downtown at 280 W Jefferson St. It\'s about 7.5 hours drive from UNC Charlotte.'
         },
-        'what events are there': {
-          keywords: ['events', 'what', 'compete', 'competition', 'list'],
-          answer: '🏆 ICDC has 28 competitive events across three categories:\n\n✅ Prepared Business Presentation (6 events): Advertising Campaign, Business Research, Digital Marketing, Entrepreneurship (Starting/Growing), Financial Statement Analysis\n\n✅ Team Case Study (7 events): Business Ethics, B2B Marketing, Entertainment, Event Planning, International Marketing, Marketing Communications, Sports Marketing\n\n✅ Individual Case Study (11 events): Corporate Finance, Fashion, Financial Accounting, Hotel & Lodging, HR Management, Marketing Management, Restaurant, Retail, Sales, Travel & Tourism'
+        'who can attend': {
+          keywords: ['who', 'attend', 'compete', 'eligible', 'qualify'],
+          answer: '👥 Only Collegiate DECA members who qualify through their State Career Development Conference (SCDC) or chartered association can compete. Advisors, judges, alumni, and corporate partners also attend. ~1,200 participants total!'
         },
-        'how do i register': {
-          keywords: ['register', 'registration', 'sign up', 'qualify', 'registration guide'],
-          answer: '📝 To compete at ICDC, you must first qualify through your state or chapter competition. Check our ICDC Forms section or contact our leadership team for chapter-specific registration details. See the Registration Guide for official deadlines and requirements.'
+        'how to qualify': {
+          keywords: ['qualify', 'qualify', 'scdc', 'state', 'placement', 'how'],
+          answer: '🏆 Students qualify by placing high enough at their State Career Development Conference (SCDC) or through association-specific qualification rules. Each state/chapter has different cutoffs based on performance.'
         },
-        'what is professional development': {
-          keywords: ['professional development', 'workshop', 'sessions', 'learning'],
-          answer: '📚 The Professional Development Series at ICDC includes career panels, leadership workshops, and industry seminars on topics like communication, negotiation, finance trends, and entrepreneurship. These help you develop real-world business skills beyond just competition.'
+        'how many events': {
+          keywords: ['how', 'many', 'events', 'number', 'total'],
+          answer: '🎯 There are approximately 25 official competitive events at the collegiate level across three main categories.'
         },
-        'how do events work': {
-          keywords: ['how', 'event', 'structure', 'work', 'judging', 'competition'],
-          answer: '🎯 Most events include: (1) a knowledge exam, (2) a live role-play/presentation to business judges, and (3) for prepared events, submitted materials. Judges are industry professionals who score you on strategy, professionalism, analysis, and solutions.'
+        'event categories': {
+          keywords: ['categories', 'event', 'types', 'categories', 'case', 'presentation'],
+          answer: '📋 Events fall into three categories:\n\n✅ Individual Case Study Events — One student analyzes a real-world business problem, prepares a solution in a short time frame, and presents to a judge.\n\n✅ Team Case Study Events — Two students work together to solve a business case and present their solution jointly to judges.\n\n✅ Prepared Business Presentation Events — Students prepare a business plan, research project, or strategy before ICDC and present it live at the conference.'
         },
-        'can i network': {
-          keywords: ['network', 'networking', 'meet', 'corporate', 'employers', 'career'],
-          answer: '🤝 Yes! ICDC has a full career and college exhibit hall where you can meet corporate recruiters, explore internship/job opportunities, learn about grad programs, and build professional connections. It\'s a key part of the ICDC experience!'
+        'individual case study': {
+          keywords: ['individual', 'case', 'study', 'event'],
+          answer: '👤 In an individual case study event, one student analyzes a real-world business problem, prepares a solution in a short time frame (usually 30 min), and presents it to a judge. Tests your problem-solving, communication, and business knowledge under pressure.'
         },
-        'what should i prepare': {
-          keywords: ['prepare', 'tips', 'success', 'ready', 'practice'],
-          answer: '💡 Tips for ICDC success:\n✔ Prepare early — submit deliverables on time\n✔ Practice case studies in timed environments\n✔ Attend professional development workshops\n✔ Network actively with judges and sponsors\n✔ Bring business attire and your A-game!\n\nSuccess comes from preparation, confidence, and genuine engagement.'
+        'team case study': {
+          keywords: ['team', 'case', 'study', 'two', 'partner'],
+          answer: '👥 In a team case study event, two students work together to solve a business case and present their solution jointly to judges. Tests collaboration, communication, and team dynamics.'
         },
-        'who attends icdc': {
-          keywords: ['who', 'attend', 'participants', 'people'],
-          answer: '👥 ICDC attracts ~1,200 participants:\n✔ Collegiate DECA student members (those who qualified)\n✔ Advisors and chapter sponsors\n✔ Business professionals serving as judges\n✔ Corporate representatives and exhibitors\n✔ DECA alumni\n\nIt\'s a vibrant community of future business leaders!'
+        'prepared presentation': {
+          keywords: ['prepared', 'presentation', 'business', 'plan', 'submit'],
+          answer: '📊 In prepared business presentation events, students prepare a business plan, research project, or strategy before ICDC and present it live at the conference. You control the content and have time to polish it!'
+        },
+        'are there exams': {
+          keywords: ['exam', 'test', 'written', 'require'],
+          answer: '📝 Some events include a written exam, while others focus entirely on case studies or presentations, depending on the specific event. Check event details for requirements!'
+        },
+        'event subjects topics': {
+          keywords: ['topics', 'subjects', 'cover', 'marketing', 'finance', 'areas'],
+          answer: '🎓 Events cover areas like:\n✔ Marketing & Communications\n✔ Finance & Accounting\n✔ Entrepreneurship\n✔ Hospitality & Tourism\n✔ Human Resources\n✔ Sales & Management\n✔ And more!'
+        },
+        'who judges': {
+          keywords: ['judge', 'judges', 'who', 'score', 'professional'],
+          answer: '👔 Judges are business professionals, including industry experts, professors, corporate partners, and DECA alumni. They bring real-world experience to scoring.'
+        },
+        'how evaluated judging': {
+          keywords: ['evaluated', 'score', 'judging', 'how', 'criteria', 'basis'],
+          answer: '📊 Judges score competitors based on:\n✔ Business knowledge\n✔ Problem-solving ability\n✔ Communication & presentation skills\n✔ Professionalism\n✔ Creativity and feasibility of solutions'
+        },
+        'competition day schedule': {
+          keywords: ['day', 'schedule', 'typical', 'competition', 'what', 'like'],
+          answer: '⏰ A typical competition day: Competitors attend scheduled role-plays or presentations, then spend the rest of the day at workshops, exhibits, or networking events. Days are packed but fun!'
+        },
+        'first day icdc': {
+          keywords: ['first', 'day', 'opening', 'icdc', 'start'],
+          answer: '🎉 The first day usually includes registration, opening sessions, and professional development workshops to kick off the conference and get everyone oriented.'
+        },
+        'professional development series': {
+          keywords: ['professional development', 'workshop', 'sessions', 'series', 'pds'],
+          answer: '📚 The Professional Development Series is a set of workshops and speaker sessions focused on:\n✔ Leadership skills\n✔ Career readiness\n✔ Industry trends\n✔ Real-world business strategies\n\nA key part of building business skills beyond just competition!'
+        },
+        'networking opportunities': {
+          keywords: ['networking', 'network', 'meet', 'corporate', 'recruiters', 'exhibit'],
+          answer: '🤝 Yes! ICDC has a full career and college exhibit hall where you can:\n✔ Meet corporate recruiters\n✔ Explore internship/job opportunities\n✔ Learn about grad programs\n✔ Build professional connections\n\nIt\'s one of the most valuable parts of ICDC!'
+        },
+        'awards recognition': {
+          keywords: ['award', 'awards', 'trophy', 'medal', 'recognition', 'glass'],
+          answer: '🏅 Awards at ICDC include:\n✔ Finalist medals\n✔ Top-10 recognition\n✔ Champion awards\n✔ DECA Glass trophies for top winners\n\nNational-level recognition that looks great on resumes!'
+        },
+        'how competitive': {
+          keywords: ['competitive', 'competition', 'hard', 'difficult', 'level'],
+          answer: '🔥 ICDC is highly competitive! It features top performers from each state and chartered association across the country. But it\'s also an incredible learning opportunity regardless of placement!'
+        },
+        'why valuable icdc': {
+          keywords: ['valuable', 'why', 'benefit', 'important', 'worth'],
+          answer: '⭐ ICDC is valuable because it:\n✔ Builds real-world business skills\n✔ Boosts your resume with national recognition\n✔ Improves confidence\n✔ Provides networking with industry leaders\n✔ Creates lifelong memories and friendships\n✔ Turns classroom knowledge into sharp business judgment under pressure!'
         }
       };
 
       const presetQuestions = [
         'What is ICDC?',
         'When is ICDC 2026?',
-        'What events are there?',
-        'How do I register?',
-        'How do events work?',
-        'What should I prepare?'
+        'What are the event categories?',
+        'What makes ICDC valuable?'
       ];
 
       function findAnswer(question) {
         const q = question.toLowerCase().trim();
+        let bestMatch = null;
+        let bestScore = 0;
+        
         for(let key in knowledgeBase) {
           const kb = knowledgeBase[key];
           const matchCount = kb.keywords.filter(k => q.includes(k)).length;
-          if(matchCount >= Math.ceil(kb.keywords.length / 2)) return kb.answer;
+          if(matchCount > bestScore) {
+            bestScore = matchCount;
+            bestMatch = kb.answer;
+          }
         }
-        return "I'm not sure about that! Please check our ICDC Forms section or contact leadership at pratiktanikella@gmail.com for more details. 📧";
+        
+        return bestMatch || "I'm not sure about that! Ask me about ICDC, events, competitions, professional development, or networking. Or contact our leadership team at pratiktanikella@gmail.com! 📧";
       }
 
       function initChatbot() {
@@ -956,7 +1005,7 @@
             .chatbot-messages { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
             .message { padding: 8px 12px; border-radius: 8px; font-size: 13px; line-height: 1.4; word-wrap: break-word; }
             .message.user { background: #0B3D91; color: white; align-self: flex-end; max-width: 80%; }
-            .message.bot { background: #f0f4f8; color: #08304a; align-self: flex-start; max-width: 90%; }
+            .message.bot { background: #f0f4f8; color: #08304a; align-self: flex-start; max-width: 90%; white-space: pre-wrap; }
             .preset-questions { display: flex; flex-direction: column; gap: 6px; padding: 8px 0; }
             .preset-btn { background: #e6eef4; border: 1px solid #0B3D91; color: #0B3D91; padding: 8px 10px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; text-align: left; transition: all 0.2s; }
             .preset-btn:hover { background: #0B3D91; color: white; }
@@ -983,7 +1032,7 @@
             </div>
             
             <div class="chatbot-messages">
-              <div class="message bot">👋 Hi! I'm the DECA Assistant. Ask me about ICDC, events, registration, or anything else! Try clicking a quick question below.</div>
+              <div class="message bot">👋 Hi! I'm the DECA Assistant. Ask me anything about ICDC, competitive events, professional development, networking, and more!</div>
               <div class="preset-questions">
                 ${presetQuestions.map(q => `<button class="preset-btn">${q}</button>`).join('')}
               </div>
