@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sign Up — UNC Charlotte Collegiate DECA</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#f3f7fb}
+    .card{background:white;padding:22px;border-radius:10px;box-shadow:0 8px 30px rgba(2,20,40,0.06);width:420px}
+    h1{margin:0 0 12px;font-size:20px;color:#08304a}
+    label{display:block;margin-top:10px;font-size:14px}
+    input,select{width:100%;padding:10px;margin-top:6px;border-radius:8px;border:1px solid #e6eef4}
+    .btn{margin-top:14px;background:#0B3D91;color:white;padding:10px 12px;border-radius:8px;border:none;cursor:pointer;width:100%}
+    .muted{font-size:13px;color:#6b7280;margin-top:8px}
+    .links{display:flex;justify-content:space-between;margin-top:12px}
+    a{color:#0B3D91;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Create an account</h1>
+    <form id="signupForm">
+      <label>Full name<input type="text" id="name" required></label>
+      <label>UNC Charlotte Email<input type="email" id="email" placeholder="you@charlotte.edu" required></label>
+      <label>Password<input type="password" id="password" required></label>
+      <label>Confirm Password<input type="password" id="confirm" required></label>
+      <button class="btn" type="submit">Sign Up</button>
+    </form>
+    <div class="muted">Only UNC Charlotte emails (charlotte.edu) are allowed. <div class="links"><span></span><a href="login.html">Already have an account?</a></div></div>
+  </div>
+  <script src="auth.js"></script>
+  <script>
+    document.getElementById('signupForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim().toLowerCase();
+      const pw = document.getElementById('password').value;
+      const confirm = document.getElementById('confirm').value;
+      if(!email.endsWith('@charlotte.edu')){ alert('Please use your UNC Charlotte email (charlotte.edu).'); return }
+      if(pw !== confirm){ alert('Passwords do not match.'); return }
+      const created = signUp({name, email, password: pw});
+      if(!created){ alert('An account with that email already exists.'); return }
+      alert('Account created. You will be logged in now.');
+      login(email, pw);
+      window.location.href = 'dashboard.html';
+    })
+  </script>
+</body>
+</html>

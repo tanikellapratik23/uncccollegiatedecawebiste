@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard — UNC Charlotte Collegiate DECA</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#f7fbfd;margin:0;color:#08304a}
+    header{background:#0B3D91;color:white;padding:18px}
+    .container{max-width:920px;margin:18px auto;padding:12px}
+    .card{background:white;padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(2,20,40,0.06);margin-bottom:12px}
+    h1{margin:0 0 8px}
+    label{display:block;margin-top:8px}
+    input,select{width:100%;padding:8px;border-radius:8px;border:1px solid #e6eef4}
+    .btn{background:#0B3D91;color:white;padding:8px 12px;border-radius:8px;border:none;cursor:pointer}
+    .row{display:flex;gap:12px}
+    .col{flex:1}
+    .post{border-top:1px solid #eef4f7;padding-top:10px;margin-top:10px}
+    .topnote{background:#fff7e6;border-left:6px solid #f5a623;padding:10px;border-radius:6px;margin-bottom:12px}
+    .logout{float:right;background:transparent;border:1px solid rgba(255,255,255,0.2);color:white;padding:6px 10px;border-radius:8px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Member Dashboard <button id="logoutBtn" class="logout">Log out</button></h1>
+      <div style="font-size:14px;opacity:0.9">Welcome — manage your presentations and submissions here.</div>
+    </div>
+  </header>
+  <div class="container">
+    <div class="card topnote">
+      <strong>DECA Events Reminder:</strong> DECA Inc. officially lists 25 core competitive events for Collegiate ICDC. The exact 2026 list will be published by DECA later. See event selection below when posting.
+    </div>
+
+    <div class="card">
+      <h2>Post Presentation</h2>
+      <form id="postForm">
+        <label>Title<input id="title" required></label>
+        <label>Event<select id="eventSelect" required></select></label>
+        <label>Document (PDF recommended)<input id="file" type="file" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"></label>
+        <div style="margin-top:10px"><button class="btn" type="submit">Publish</button></div>
+      </form>
+    </div>
+
+    <div id="myPosts" class="card">
+      <h2>Your Submissions</h2>
+      <div id="postsList"></div>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    const events = [
+      'Advertising Campaign','Business Research','Digital Marketing Strategies','Entrepreneurship – Starting a Business','Entrepreneurship – Growing Your Business','Financial Statement Analysis','Professional Sales','Business Ethics','Business-to-Business Marketing','Entertainment Marketing','Event Planning','International Marketing','Marketing Communications','Sports Marketing','Corporate Finance','Entrepreneurship Operations','Fashion Merchandising & Marketing','Financial Accounting','Hotel & Lodging Management','Human Resource Management','Marketing Management','Restaurant & Food Service Management','Retail Management','Sales Management & Leadership','Travel & Tourism Management','Stock Market Game','Virtual Case Simulation','Sales Challenge'
+    ];
+
+    function ensureAuth(){
+      const u = getCurrentUser();
+      if(!u){ window.location.href = 'login.html'; return null }
+      return u;
+    }
+
+    const user = ensureAuth();
+    document.getElementById('logoutBtn').addEventListener('click', function(){ logout(); window.location.href='login.html' })
+
+    const sel = document.getElementById('eventSelect');
+    events.forEach(e=>{ const o = document.createElement('option'); o.value=e; o.textContent=e; sel.appendChild(o) });
+
+    document.getElementById('postForm').addEventListener('submit', async function(e){
+      e.preventDefault();
+      const title = document.getElementById('title').value.trim();
+      const eventName = document.getElementById('eventSelect').value;
+      const fileInput = document.getElementById('file');
+      let fileData = null;
+      if(fileInput.files && fileInput.files[0]){
+        fileData = await toDataURL(fileInput.files[0]);
+      }
+      const post = {id: 'p_'+Date.now(), authorEmail: user.email, authorName: user.name, title, event: eventName, file: fileData, created: new Date().toISOString()};
+      savePost(post);
+      renderPosts();
+      this.reset();
+      alert('Published');
+    });
+
+    function toDataURL(file){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file) }) }
+
+    function renderPosts(){
+      const all = getPosts().filter(p=>p.authorEmail===user.email).sort((a,b)=>b.created.localeCompare(a.created));
+      const out = document.getElementById('postsList'); out.innerHTML = '';
+      if(all.length===0){ out.textContent='No submissions yet.'; return }
+      all.forEach(p=>{
+        const d=document.createElement('div'); d.className='post';
+        d.innerHTML = `<div style="display:flex;justify-content:space-between"><div><strong>${escapeHtml(p.title)}</strong> <div style="font-size:13px;color:#6b7280">${p.event}</div></div><div style="font-size:12px;color:#6b7280">${new Date(p.created).toLocaleString()}</div></div>`;
+        if(p.file){ const a=document.createElement('a'); a.href=p.file; a.target='_blank'; a.textContent='Download Document'; a.style.display='block'; a.style.marginTop='8px'; d.appendChild(a) }
+        out.appendChild(d);
+      })
+    }
+
+    function escapeHtml(s){ return (s||'').replace(/[&<>\"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]}) }
+
+    renderPosts();
+  </script>
+</body>
+</html>

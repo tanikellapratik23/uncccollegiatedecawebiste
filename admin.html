@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin — UNC Charlotte Collegiate DECA</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#f7fbfd;margin:0;color:#08304a}
+    header{background:#042034;color:white;padding:14px}
+    .container{max-width:1100px;margin:18px auto;padding:12px}
+    .card{background:white;padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(2,20,40,0.06);margin-bottom:12px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px;border-bottom:1px solid #eef4f7;text-align:left}
+    .danger{color:#b91c1c;cursor:pointer}
+    .logout{float:right;background:transparent;border:1px solid rgba(255,255,255,0.2);color:white;padding:6px 10px;border-radius:8px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Admin Dashboard <button id="logoutBtn" class="logout">Log out</button></h1>
+    </div>
+  </header>
+  <div class="container">
+    <div class="card">
+      <h2>Registered Users</h2>
+      <div style="overflow:auto"><table id="usersTable"><thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Actions</th></tr></thead><tbody></tbody></table></div>
+    </div>
+
+    <div class="card">
+      <h2>All Submissions</h2>
+      <div style="overflow:auto"><table id="postsTable"><thead><tr><th>Title</th><th>Event</th><th>Author</th><th>Uploaded</th><th>Doc</th><th>Actions</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    // admin guarding
+    const adminEmail = 'ptanike1@charlotte.edu';
+    const adminPassword = 'DqAmcCB4/DqAmcCB4/';
+    function ensureAdmin(){
+      const cur = getCurrentUser();
+      if(!cur || cur.email !== adminEmail){
+        // try to auto-auth if credentials match stored admin flag in session
+        const raw = sessionStorage.getItem('admin_auth');
+        if(raw !== 'ok'){ window.location.href='login.html'; return null }
+      }
+      return true;
+    }
+
+    // If user logs in with admin credentials via login page, set a session marker so admin can see this page.
+    if(!ensureAdmin()){}
+
+    document.getElementById('logoutBtn').addEventListener('click', function(){ logout(); sessionStorage.removeItem('admin_auth'); window.location.href='login.html' })
+
+    function renderUsers(){
+      const tbody = document.querySelector('#usersTable tbody'); tbody.innerHTML='';
+      const users = getUsers();
+      users.forEach(u=>{
+        const tr=document.createElement('tr');
+        tr.innerHTML = `<td>${escapeHtml(u.name)}</td><td>${escapeHtml(u.email)}</td><td>${u.joined||''}</td><td><button data-email="${u.email}" class="delUser">Delete</button></td>`;
+        tbody.appendChild(tr);
+      });
+      document.querySelectorAll('.delUser').forEach(b=>b.addEventListener('click', function(){ if(!confirm('Delete user?')) return; deleteUser(this.dataset.email); renderUsers(); renderPosts(); }))
+    }
+
+    function renderPosts(){
+      const tbody = document.querySelector('#postsTable tbody'); tbody.innerHTML='';
+      const posts = getPosts().slice().sort((a,b)=>b.created.localeCompare(a.created));
+      posts.forEach(p=>{
+        const tr=document.createElement('tr');
+        tr.innerHTML = `<td>${escapeHtml(p.title)}</td><td>${escapeHtml(p.event)}</td><td>${escapeHtml(p.authorName+' <'+p.authorEmail+'>')}</td><td>${new Date(p.created).toLocaleString()}</td><td>${p.file?('<a href="'+p.file+'" target="_blank">View</a>'):'-'}</td><td><button data-id="${p.id}" class="delPost">Delete</button></td>`;
+        tbody.appendChild(tr);
+      });
+      document.querySelectorAll('.delPost').forEach(b=>b.addEventListener('click', function(){ if(!confirm('Delete post?')) return; deletePost(this.dataset.id); renderPosts(); }))
+    }
+
+    function escapeHtml(s){ return (s||'').replace(/[&<>\"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]}) }
+
+    // initial render
+    renderUsers(); renderPosts();
+  </script>
+</body>
+</html>
