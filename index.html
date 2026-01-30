@@ -174,6 +174,7 @@
                     <a href="#">Home</a>
                     <a href="#about">About</a>
                     <a href="#recap-2025">Recap-2025</a>
+                    <a href="#transportation">Transportation</a>
                     <a href="#icdc-forms">ICDC Forms</a>
                     <a href="login.html">Login</a>
                     <a href="signup.html">Sign Up</a>
@@ -301,10 +302,10 @@
 
                         <h3 style="margin-top:12px">Executive Board</h3>
                         <ul style="margin:8px 0 0 18px;color:#133047">
+                            <li>Pratik — President</li>
                             <li>Nolan — VP of Outreach</li>
                             <li>AJ — VP of Marketing</li>
                             <li>Tejhas — VP of Finance</li>
-                            <li>Pratik Tanikella — Co-President</li>
                         </ul>
 
                         <h3 style="margin-top:12px">Board Accomplishments</h3>
@@ -389,6 +390,72 @@
                     <section id="registration" class="card" style="margin-top:16px">
                         <h2>Registration</h2>
                         <p class="about">For registration details, hotel reservations, and the official guide, contact your Chartered Association Advisor or visit the Collegiate DECA registration portal. Chapters should follow DECA Inc. deadlines.</p>
+                    </section>
+
+                    <section id="transportation" class="card" style="margin-top:16px">
+                        <h2>Transportation</h2>
+                        <p class="about">Book your flights to Louisville, Kentucky for ICDC 2026. We recommend arriving by April 17 and departing April 22 to accommodate the full conference experience and travel time.</p>
+                        
+                        <!-- Current Price & Links -->
+                        <div style="margin-top:14px;padding:16px;background:#f7fbfd;border-radius:8px;border:2px solid #0B3D91">
+                            <div style="display:flex;justify-content:space-between;align-items:center">
+                                <div>
+                                    <div style="font-size:12px;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px">Current Average Flight Price</div>
+                                    <div style="display:flex;align-items:baseline;gap:10px;margin-top:4px">
+                                        <div id="currentPrice" style="font-size:42px;font-weight:700;color:#0B3D91">—</div>
+                                        <button id="flightDetailsBtn" class="btn" style="padding:6px 12px;font-size:12px;background:#2348A6">See Details</button>
+                                    </div>
+                                    <div style="font-size:12px;color:#6b7280;margin-top:4px">Charlotte (CLT) → Louisville (SDF) · April 17–22, 2026</div>
+                                </div>
+                                <div style="text-align:right">
+                                    <div id="priceTrend" style="font-size:32px;margin-bottom:8px">📊</div>
+                                    <div id="lastUpdate" style="font-size:11px;color:#6b7280">Last updated: —</div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+                                <a href="https://www.google.com/flights?q=flights%20CLT%20SDF%202026-04-17%202026-04-22" target="_blank" rel="noopener noreferrer" class="btn" style="padding:10px 14px;font-size:14px">Google Flights (CLT→SDF)</a>
+                                <a href="https://www.kayak.com/flights/CLT-SDF/2026-04-17/2026-04-22" target="_blank" rel="noopener noreferrer" class="btn" style="padding:10px 14px;font-size:14px;background:#2348A6">Kayak</a>
+                            </div>
+                        </div>
+
+                        <!-- Drive to Hotel -->
+                        <div style="margin-top:14px;padding:14px;background:#f0f9ff;border-radius:8px;border:1px solid #0ea5e9">
+                            <div style="font-size:13px;font-weight:600;color:#0c4a6e;margin-bottom:8px">🚗 Driving to Conference Hotel</div>
+                            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+                                <div>
+                                    <p style="margin:0;font-size:13px;color:#0c4a6e;line-height:1.5;font-weight:600">Louisville Marriott Downtown</p>
+                                    <p style="margin:4px 0 0;font-size:12px;color:#0c4a6e">280 W Jefferson St. · Louisville, KY 40202</p>
+                                </div>
+                                <div style="text-align:right">
+                                    <div style="font-size:18px;font-weight:700;color:#0c4a6e">~7.5 hrs</div>
+                                    <div style="font-size:11px;color:#0c4a6e">From UNC Charlotte</div>
+                                </div>
+                            </div>
+                            <a href="https://www.google.com/maps/dir/UNC+Charlotte,+Charlotte,+NC/Louisville+Marriott+Downtown,+280+W+Jefferson+St,+Louisville,+KY+40202" target="_blank" rel="noopener noreferrer" class="btn" style="margin-top:8px;padding:8px 12px;font-size:13px;background:#0ea5e9;width:100%;text-align:center">View Map</a>
+                        </div>
+
+                        <!-- Yellow Reminder Box -->
+                        <div style="margin-top:14px;padding:14px;background:#fef3c7;border-radius:8px;border-left:4px solid #f59e0b">
+                            <strong style="color:#92400e">💡 Prices Update Every Hour</strong>
+                            <div style="font-size:13px;margin-top:6px;color:#92400e">Checking major airlines (United, Southwest, American, Delta) from Charlotte (CLT) to Louisville (SDF) April 17–22, 2026.</div>
+                            <div style="font-size:12px;margin-top:6px;color:#92400e">💬 Tip: Many chapters coordinate group bookings to secure discounts. Contact leadership for details on group rates for our chapter.</div>
+                        </div>
+
+                        <!-- Price History Chart -->
+                        <div style="margin-top:14px;padding:14px;background:#f7fbfd;border-radius:8px;border:1px solid #e6eef4">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                                <div>
+                                    <div style="font-size:13px;color:#6b7280">Lowest Price (7 Days)</div>
+                                    <div id="lowestPrice" style="font-size:24px;font-weight:700;color:#10b981">—</div>
+                                </div>
+                                <div style="text-align:right">
+                                    <div style="font-size:13px;color:#6b7280">Highest Price (7 Days)</div>
+                                    <div id="highestPrice" style="font-size:24px;font-weight:700;color:#ef4444">—</div>
+                                </div>
+                            </div>
+                            <div id="priceChart" style="height:180px;background:white;border-radius:6px;padding:10px;border:1px solid #e6eef4"></div>
+                        </div>
                     </section>
 
                     <section id="officers" class="card" style="margin-top:16px">
@@ -602,5 +669,23 @@
         });
     })();
     </script>
+
+    <!-- Flight Details Modal -->
+    <div id="flightModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center">
+        <div style="background:white;border-radius:12px;padding:20px;max-width:500px;width:90%;max-height:80vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+                <h2 style="margin:0;color:#0B3D91">Flight Options (CLT → SDF)</h2>
+                <button id="closeFlightModal" style="background:none;border:none;font-size:24px;cursor:pointer;color:#6b7280">&times;</button>
+            </div>
+            
+            <div id="flightDetailsContent" style="margin-top:12px"></div>
+            
+            <div style="margin-top:16px;text-align:center;font-size:12px;color:#6b7280">
+                📍 April 17–22, 2026 · Prices update hourly
+            </div>
+        </div>
+    </div>
+
+    <script src="flights.js"></script>
 </body>
 </html>
