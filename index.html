@@ -877,6 +877,180 @@
       if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initFlights);
       else initFlights();
     })();
+
+    // Chatbot
+    (function(){
+      const knowledgeBase = {
+        'what is icdc': {
+          keywords: ['what', 'icdc', 'is'],
+          answer: '🎓 ICDC is the International Career Development Conference — the pinnacle of the Collegiate DECA year. It\'s where collegiate competitors gather to compete in business events, attend professional development sessions, network with industry leaders, and earn recognition at the international level. It combines competition, learning, and career-building all in one event!'
+        },
+        'when is icdc 2026': {
+          keywords: ['when', 'icdc', 'date', '2026', 'april'],
+          answer: '📅 Collegiate DECA ICDC 2026 is April 18–21, 2026 in Louisville, Kentucky! We recommend arriving by April 17 and departing April 22 to make the most of the experience.'
+        },
+        'where is icdc': {
+          keywords: ['where', 'location', 'icdc', 'louisville', 'city'],
+          answer: '📍 ICDC 2026 is in Louisville, Kentucky, USA. The conference hotel is Louisville Marriott Downtown at 280 W Jefferson St. It\'s about 7.5 hours drive from UNC Charlotte.'
+        },
+        'what events are there': {
+          keywords: ['events', 'what', 'compete', 'competition', 'list'],
+          answer: '🏆 ICDC has 28 competitive events across three categories:\n\n✅ Prepared Business Presentation (6 events): Advertising Campaign, Business Research, Digital Marketing, Entrepreneurship (Starting/Growing), Financial Statement Analysis\n\n✅ Team Case Study (7 events): Business Ethics, B2B Marketing, Entertainment, Event Planning, International Marketing, Marketing Communications, Sports Marketing\n\n✅ Individual Case Study (11 events): Corporate Finance, Fashion, Financial Accounting, Hotel & Lodging, HR Management, Marketing Management, Restaurant, Retail, Sales, Travel & Tourism'
+        },
+        'how do i register': {
+          keywords: ['register', 'registration', 'sign up', 'qualify', 'registration guide'],
+          answer: '📝 To compete at ICDC, you must first qualify through your state or chapter competition. Check our ICDC Forms section or contact our leadership team for chapter-specific registration details. See the Registration Guide for official deadlines and requirements.'
+        },
+        'what is professional development': {
+          keywords: ['professional development', 'workshop', 'sessions', 'learning'],
+          answer: '📚 The Professional Development Series at ICDC includes career panels, leadership workshops, and industry seminars on topics like communication, negotiation, finance trends, and entrepreneurship. These help you develop real-world business skills beyond just competition.'
+        },
+        'how do events work': {
+          keywords: ['how', 'event', 'structure', 'work', 'judging', 'competition'],
+          answer: '🎯 Most events include: (1) a knowledge exam, (2) a live role-play/presentation to business judges, and (3) for prepared events, submitted materials. Judges are industry professionals who score you on strategy, professionalism, analysis, and solutions.'
+        },
+        'can i network': {
+          keywords: ['network', 'networking', 'meet', 'corporate', 'employers', 'career'],
+          answer: '🤝 Yes! ICDC has a full career and college exhibit hall where you can meet corporate recruiters, explore internship/job opportunities, learn about grad programs, and build professional connections. It\'s a key part of the ICDC experience!'
+        },
+        'what should i prepare': {
+          keywords: ['prepare', 'tips', 'success', 'ready', 'practice'],
+          answer: '💡 Tips for ICDC success:\n✔ Prepare early — submit deliverables on time\n✔ Practice case studies in timed environments\n✔ Attend professional development workshops\n✔ Network actively with judges and sponsors\n✔ Bring business attire and your A-game!\n\nSuccess comes from preparation, confidence, and genuine engagement.'
+        },
+        'who attends icdc': {
+          keywords: ['who', 'attend', 'participants', 'people'],
+          answer: '👥 ICDC attracts ~1,200 participants:\n✔ Collegiate DECA student members (those who qualified)\n✔ Advisors and chapter sponsors\n✔ Business professionals serving as judges\n✔ Corporate representatives and exhibitors\n✔ DECA alumni\n\nIt\'s a vibrant community of future business leaders!'
+        }
+      };
+
+      const presetQuestions = [
+        'What is ICDC?',
+        'When is ICDC 2026?',
+        'What events are there?',
+        'How do I register?',
+        'How do events work?',
+        'What should I prepare?'
+      ];
+
+      function findAnswer(question) {
+        const q = question.toLowerCase().trim();
+        for(let key in knowledgeBase) {
+          const kb = knowledgeBase[key];
+          const matchCount = kb.keywords.filter(k => q.includes(k)).length;
+          if(matchCount >= Math.ceil(kb.keywords.length / 2)) return kb.answer;
+        }
+        return "I'm not sure about that! Please check our ICDC Forms section or contact leadership at pratiktanikella@gmail.com for more details. 📧";
+      }
+
+      function initChatbot() {
+        const chatContainer = document.createElement('div');
+        chatContainer.id = 'chatbot-container';
+        chatContainer.innerHTML = `
+          <style>
+            #chatbot-container { position: fixed; right: 20px; bottom: 20px; z-index: 999; font-family: "Montserrat", system-ui; }
+            #chatbot-button { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #0B3D91, #2348A6); border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(11,61,145,0.3); font-size: 24px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+            #chatbot-button:hover { transform: scale(1.1); }
+            #chatbot-window { display: none; position: absolute; bottom: 70px; right: 0; width: 360px; height: 500px; background: white; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); overflow: hidden; flex-direction: column; }
+            .chatbot-header { background: linear-gradient(135deg, #0B3D91, #2348A6); color: white; padding: 16px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; font-size: 16px; }
+            .chatbot-close { background: none; border: none; color: white; font-size: 20px; cursor: pointer; }
+            .chatbot-messages { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+            .message { padding: 8px 12px; border-radius: 8px; font-size: 13px; line-height: 1.4; word-wrap: break-word; }
+            .message.user { background: #0B3D91; color: white; align-self: flex-end; max-width: 80%; }
+            .message.bot { background: #f0f4f8; color: #08304a; align-self: flex-start; max-width: 90%; }
+            .preset-questions { display: flex; flex-direction: column; gap: 6px; padding: 8px 0; }
+            .preset-btn { background: #e6eef4; border: 1px solid #0B3D91; color: #0B3D91; padding: 8px 10px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; text-align: left; transition: all 0.2s; }
+            .preset-btn:hover { background: #0B3D91; color: white; }
+            .chatbot-input-area { padding: 12px; border-top: 1px solid #e6eef4; display: flex; gap: 8px; }
+            #chatbot-input { flex: 1; border: 1px solid #e6eef4; border-radius: 6px; padding: 8px 12px; font-size: 12px; font-family: "Montserrat", system-ui; }
+            #chatbot-send { background: #0B3D91; color: white; border: none; border-radius: 6px; padding: 8px 14px; cursor: pointer; font-size: 12px; font-weight: 600; transition: background 0.2s; }
+            #chatbot-send:hover { background: #2348A6; }
+
+            @media(max-width:640px) {
+              #chatbot-container { right: 12px; bottom: 12px; }
+              #chatbot-window { width: 280px; height: 400px; }
+              #chatbot-button { width: 48px; height: 48px; font-size: 20px; }
+              .message { font-size: 12px; }
+              .preset-btn { font-size: 11px; padding: 6px 8px; }
+            }
+          </style>
+          
+          <button id="chatbot-button" title="DECA Chat">💬</button>
+          
+          <div id="chatbot-window">
+            <div class="chatbot-header">
+              🎓 DECA Assistant
+              <button class="chatbot-close">×</button>
+            </div>
+            
+            <div class="chatbot-messages">
+              <div class="message bot">👋 Hi! I'm the DECA Assistant. Ask me about ICDC, events, registration, or anything else! Try clicking a quick question below.</div>
+              <div class="preset-questions">
+                ${presetQuestions.map(q => `<button class="preset-btn">${q}</button>`).join('')}
+              </div>
+            </div>
+            
+            <div class="chatbot-input-area">
+              <input id="chatbot-input" type="text" placeholder="Ask a question..." />
+              <button id="chatbot-send">Send</button>
+            </div>
+          </div>
+        `;
+
+        document.body.appendChild(chatContainer);
+
+        const btn = document.getElementById('chatbot-button');
+        const win = document.getElementById('chatbot-window');
+        const closeBtn = document.querySelector('.chatbot-close');
+        const messagesArea = document.querySelector('.chatbot-messages');
+        const input = document.getElementById('chatbot-input');
+        const sendBtn = document.getElementById('chatbot-send');
+        const presetBtns = document.querySelectorAll('.preset-btn');
+
+        btn.addEventListener('click', () => {
+          win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        closeBtn.addEventListener('click', () => {
+          win.style.display = 'none';
+        });
+
+        function addMessage(text, isUser) {
+          const msg = document.createElement('div');
+          msg.className = 'message ' + (isUser ? 'user' : 'bot');
+          msg.textContent = text;
+          messagesArea.appendChild(msg);
+          messagesArea.scrollTop = messagesArea.scrollHeight;
+        }
+
+        function handleQuestion(q) {
+          if(!q.trim()) return;
+          addMessage(q, true);
+          input.value = '';
+          setTimeout(() => {
+            const answer = findAnswer(q);
+            addMessage(answer, false);
+          }, 300);
+        }
+
+        sendBtn.addEventListener('click', () => {
+          handleQuestion(input.value);
+        });
+
+        input.addEventListener('keypress', (e) => {
+          if(e.key === 'Enter') handleQuestion(input.value);
+        });
+
+        presetBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            handleQuestion(btn.textContent);
+          });
+        });
+      }
+
+      if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initChatbot);
+      else initChatbot();
+    })();
+    
     </script>
 </body>
 </html>
