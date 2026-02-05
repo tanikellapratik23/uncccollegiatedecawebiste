@@ -237,6 +237,185 @@
         [data-theme="dark"] .site-nav .brand{background:var(--card-bg)}
         [data-theme="dark"] .logo{color:#fff}
         [data-theme="dark"] .about{color:#dbeeff}
+
+        /* Announcements Bulletin Board Styles */
+        .announcements-board {
+            background: linear-gradient(135deg, #f9f3e8 0%, #fef8ec 100%);
+            border: 3px solid #d4a574;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(11,61,145,0.1), inset 0 2px 4px rgba(212,165,116,0.1);
+            position: relative;
+        }
+        .announcements-board::before {
+            content: '📋';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            font-size: 32px;
+            background: var(--card-bg);
+            padding: 5px 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .announcement-card {
+            background: #fffef9;
+            border: 2px solid #e8d5b5;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08), 2px 2px 0 rgba(212,165,116,0.2);
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .announcement-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12), 2px 2px 0 rgba(212,165,116,0.3);
+        }
+        .announcement-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .announcement-pin {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        .announcement-meta {
+            flex: 1;
+        }
+        .announcement-date {
+            font-weight: 700;
+            color: #d97706;
+            font-size: 15px;
+        }
+        .announcement-author {
+            font-size: 12px;
+            color: #92400e;
+            margin-top: 2px;
+        }
+        .announcement-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0b3350;
+            margin: 0 0 10px 0;
+            font-family: "Merriweather", serif;
+        }
+        .announcement-content {
+            color: #133047;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+        .comments-section {
+            border-top: 2px dashed #e8d5b5;
+            padding-top: 16px;
+            margin-top: 16px;
+        }
+        .comments-header {
+            font-weight: 600;
+            color: #0b3350;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        .comments-list {
+            margin-bottom: 16px;
+        }
+        .comment {
+            background: #fef9ed;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 3px solid #d4a574;
+        }
+        .comment-author {
+            font-weight: 600;
+            color: #0b3350;
+            font-size: 13px;
+        }
+        .comment-text {
+            color: #133047;
+            font-size: 13px;
+            margin: 4px 0;
+            line-height: 1.5;
+        }
+        .comment-time {
+            font-size: 11px;
+            color: #92400e;
+        }
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .comment-input-name {
+            padding: 10px;
+            border: 2px solid #e8d5b5;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            background: #fffef9;
+        }
+        .comment-input-text {
+            padding: 10px;
+            border: 2px solid #e8d5b5;
+            border-radius: 8px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            font-size: 14px;
+            background: #fffef9;
+        }
+        .comment-btn {
+            background: #d97706;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            align-self: flex-start;
+            transition: background 0.2s;
+        }
+        .comment-btn:hover {
+            background: #b45309;
+        }
+        
+        /* Dark theme for announcements */
+        [data-theme="dark"] .announcements-board {
+            background: linear-gradient(135deg, #1a1410 0%, #2a1f15 100%);
+            border-color: #5a4a3a;
+        }
+        [data-theme="dark"] .announcement-card {
+            background: #1f1812;
+            border-color: #4a3a2a;
+        }
+        [data-theme="dark"] .announcement-title {
+            color: #d7e7f6;
+        }
+        [data-theme="dark"] .announcement-content {
+            color: #dbeeff;
+        }
+        [data-theme="dark"] .announcement-date {
+            color: #fbbf24;
+        }
+        [data-theme="dark"] .comment {
+            background: #2a2015;
+            border-left-color: #5a4a3a;
+        }
+        [data-theme="dark"] .comment-author {
+            color: #d7e7f6;
+        }
+        [data-theme="dark"] .comment-text {
+            color: #dbeeff;
+        }
+        [data-theme="dark"] .comment-input-name,
+        [data-theme="dark"] .comment-input-text {
+            background: #2a2015;
+            border-color: #4a3a2a;
+            color: #dbeeff;
+        }
     </style>
 </head>
 <body>
@@ -246,6 +425,7 @@
                     <div class="links">
                     <a href="#">Home</a>
                     <a href="#about">About</a>
+                    <a href="#announcements">Announcements</a>
                     <a href="#recap-2025">Recap-2025</a>
                     <a href="#transportation">Transportation</a>
                     <a href="#icdc-forms">ICDC Forms</a>
@@ -367,6 +547,16 @@
                                     <div class="muted">Sales Challenge, LinkedIn Photo Booth, election of new executive officers and special programs.</div>
                                 </div>
                                 <div class="period">Extras</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="announcements" class="card" style="margin-top:16px">
+                        <h2>📢 Announcements</h2>
+                        <p class="about">Stay updated with the latest news, funding updates, and important information from the chapter leadership team.</p>
+                        <div class="announcements-board" style="margin-top:16px">
+                            <div id="announcementsContainer">
+                                <!-- Announcements will be dynamically loaded here -->
                             </div>
                         </div>
                     </section>
@@ -658,6 +848,7 @@
             });
         })();
     </script>
+    <script src="announcements.js"></script>
     <script>
     // Generate and download an .ics file with events so users can import to Google Calendar
     (function(){
