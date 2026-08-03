@@ -1,10 +1,10 @@
 # uncccollegiatedecawebiste
 # Collegiate DECA — UNC Charlotte
 
-A static website presenting the UNC Charlotte Collegiate DECA chapter, 2026–27 school-year updates, ICDC 2027 details and a membership portal. It includes an official conference-guide link, an email-submission membership form, an ICS calendar export for key dates and an embedded recap presentation.
+A responsive multi-page website for the UNC Charlotte Collegiate DECA chapter, the 2026–27 school year and ICDC 2027 in Austin. It includes dedicated conference, travel, chapter and membership pages alongside the existing member portal.
 
 Quick start
-- Keep `index.html`, `collegiatedeca.png`, `deca_grouppic.png` and the JavaScript files in the same folder.
+- Keep the HTML pages, `styles.css`, `site.js`, `collegiatedeca.png` and `deca_grouppic.png` in the same folder.
 - Open `index.html` directly or serve the folder from a simple HTTP server:
 
 ```bash
@@ -13,11 +13,12 @@ python3 -m http.server 8000
 # then open http://localhost:8000/
 ```
 
-Features
-- Registration guide: clicking "View Registration Guide" opens DECA's official conference page so the link stays current when 2027 materials are released.
-- Membership form: submits via the user's email client to `pratiktanikella@gmail.com` (uses `mailto:`).
-- Add to Calendar: downloads `UNC_Charlotte_DECA_2026-27.ics` for import into Google Calendar or other calendar apps.
-- Recap section: embedded Google Slides presentation and a recap photo.
+Pages
+- `index.html`: chapter overview and 2026–27 roadmap.
+- `conference.html`: ICDC 2027 highlights, venue and planning timeline.
+- `travel.html`: CLT–AUS flight searches, hotel maps and booking checklist.
+- `chapter.html`: chapter story and 2026–27 executive board.
+- `join.html`: membership benefits, interest form and member portal links.
 
 Notes for maintainers
 - To change the contact email, edit the `mailto:` links in the header and form (`index.html`).
