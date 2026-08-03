@@ -37,7 +37,7 @@ export default async function handler(req, res) {
           headers: { Authorization: `Bearer ${hfToken}` },
           method: 'POST',
           body: JSON.stringify({
-            inputs: `You are a helpful DECA assistant. Answer this question about Collegiate DECA ICDC 2026: ${question}`,
+            inputs: `You are a helpful DECA assistant. Answer this question about Collegiate DECA ICDC 2027 in Austin, Texas, from April 9–12, 2027: ${question}`,
             parameters: { max_new_tokens: 256, temperature: 0.7 }
           }),
         });
