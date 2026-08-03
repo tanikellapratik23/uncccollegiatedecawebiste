@@ -18,6 +18,7 @@ Pages
 - `conference.html`: ICDC 2027 highlights, venue and planning timeline.
 - `travel.html`: CLT–AUS flight searches, hotel maps and booking checklist.
 - `chapter.html`: chapter story and 2026–27 executive board.
+- `recap-2026.html`: Kentucky 2026 results, memories and photo gallery.
 - `join.html`: membership benefits, interest form and member portal links.
 
 Notes for maintainers
