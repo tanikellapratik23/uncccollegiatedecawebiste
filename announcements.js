@@ -1,22 +1,22 @@
 // Announcements data and functionality
 function getAnnouncements() {
-    const stored = localStorage.getItem('announcements');
+    const stored = localStorage.getItem('announcements_2026_27');
     if (stored) {
         return JSON.parse(stored);
     }
     // Default first announcement
     return [{
         id: 'ann_1',
-        date: '2026-02-05',
-        title: 'Funding Update',
-        content: 'We heard back from the Belk College of Business about funding! As far as 22 students will have 3 nights fully covered in terms of housing at the competition. We are communicating with the SGA budget about covering registration dues ($150 per head). Most likely it will be reduced through funding to $41 per head as that is the funding limit, but we will keep you updated!',
+        date: '2026-08-03',
+        title: 'Welcome Back, Niners!',
+        content: 'Welcome to the 2026–27 UNC Charlotte Collegiate DECA chapter year! We are preparing for competitive events, professional development and ICDC in Austin, Texas, April 9–12, 2027. Watch this page for kickoff meeting, membership and travel updates.',
         author: 'Leadership Team',
         comments: []
     }];
 }
 
 function saveAnnouncements(announcements) {
-    localStorage.setItem('announcements', JSON.stringify(announcements));
+    localStorage.setItem('announcements_2026_27', JSON.stringify(announcements));
 }
 
 function addComment(announcementId, fullName, comment) {
